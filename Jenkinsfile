@@ -55,7 +55,7 @@ node {
 		echo 'Deploying....'
 		
 		try{
-	           sh "mvn package" 
+	           sh "sudo docker run -v ${userdir}/devops/exercicio3/srv/jenkins/workspace/${env.JOB_NAME}:/workspace -w /workspace maven:latest mvn package" 
 		   echo 'Package builded with success!'			
 	           archiveArtifacts artifacts: '**/target/project-unittesting-1.0-SNAPSHOT.jar', fingerprint: true
 		   echo 'Package deployed with success!'
@@ -64,6 +64,16 @@ node {
 		  status = 'F'
 		  echo 'Deploy failed.'
 		  throw e
+		}
+		finally {
+		    unstash 'res'
+		    if (status=='S')		     { 
+		       sh 'echo "Deploy finalizado com sucesso"  >> resultado'
+			 }
+		    else{
+		       sh 'echo "Deploy finalizado com erro"  >> resultado'
+			}
+			archiveArtifacts artifacts: '**/resultado', fingerprint: true
 		}
 		
 	}
