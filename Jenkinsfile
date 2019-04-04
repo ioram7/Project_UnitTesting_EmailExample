@@ -46,8 +46,8 @@ node {
 			 }
 		    else{
 		       sh 'echo "Testes finalizados com erro"  >> resultado'
+			   archiveArtifacts artifacts: '**/resultado', fingerprint: true
 			}
-			archiveArtifacts artifacts: '**/resultado', fingerprint: true
 		}
 	}
 	stage('Deploy') {
