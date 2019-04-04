@@ -66,7 +66,6 @@ node {
 		  throw e
 		}
 		finally {
-		    unstash 'res'
 		    if (status=='S')		     { 
 		       sh 'echo "Deploy finalizado com sucesso"  >> resultado'
 			 }
