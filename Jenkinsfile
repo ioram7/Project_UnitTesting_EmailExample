@@ -54,5 +54,17 @@ node {
 	
 		echo 'Deploying....'
 		
+		try{
+	           sh "mvn package" 
+		   echo 'Package builded with success!'			
+	           archiveArtifacts artifacts: '**/target/project-unittesting-1.0-SNAPSHOT.jar', fingerprint: true
+		   echo 'Package deployed with success!'
+		}
+		catch (e) {
+		  status = 'F'
+		  echo 'Deploy failed.'
+		  throw e
+		}
+		
 	}
 }
