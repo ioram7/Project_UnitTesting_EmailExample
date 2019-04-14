@@ -1,4 +1,4 @@
-def userdir = '/home/karla'
+def userdir = '/Users/iss'
 def status = 'S'
 
 node {
